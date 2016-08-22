@@ -29,7 +29,7 @@ namespace SeleniumTests
             driver = new FirefoxDriver();
             //driver = new ChromeDriver();
             js =  driver as IJavaScriptExecutor;
-            baseURL = "https://clicpltest.egroup.hu/";
+            baseURL = "https://clicpltest.egroup.hu";
             verificationErrors = new StringBuilder();
         }
 
@@ -58,8 +58,12 @@ namespace SeleniumTests
             driver.FindElement(By.Id("loginId")).SendKeys("100003");
             driver.FindElement(By.Id("login")).Click();
             Thread.Sleep(3000);
-            driver.FindElement(By.Id("submit")).Click();
-            Thread.Sleep(1000);
+            try
+            {
+                driver.FindElement(By.Id("submit")).Click();
+                Thread.Sleep(1000);
+            }
+            catch { }
             driver.Navigate().GoToUrl("https://clicpltest.egroup.hu/Domestic/New#forward");
             Thread.Sleep(2000);
             /*
@@ -87,8 +91,8 @@ namespace SeleniumTests
             Thread.Sleep(1000);
             driver.Navigate().GoToUrl("https://clicpltest.egroup.hu/PaymentList/List#forward");
             Thread.Sleep(15000);
-            driver.FindElement(By.XPath(".//*[@id='divFilterBlock']/div[1]/div[1]/div[1]/div/div")).Click();
-            Thread.Sleep(2000);
+            /*driver.FindElement(By.XPath(".//*[@id='divFilterBlock']/div[1]/div[1]/div[1]/div/div")).Click();
+            Thread.Sleep(2000);*/
             driver.FindElement(By.Id("Clear")).Click();
             //-------------------------------------------------------------------
             do
@@ -103,9 +107,9 @@ namespace SeleniumTests
             driver.FindElement(By.Id("Filter_AmountFrom")).SendKeys("1000");
             driver.FindElement(By.Id("Filter_AmountTo")).Clear();
             driver.FindElement(By.Id("Filter_AmountTo")).SendKeys("1000");
-            ///////////////////////////////////////////////////////////////
+            driver.FindElement(By.Id("dk2-combobox")).Click();
+            driver.FindElement(By.Id("dk2-ToEdit")).Click();
             new SelectElement(driver.FindElement(By.Id("Filter_TransactionStatus"))).SelectByText("To edit");
-            ///////////////////////////////////////////////////////////////
             driver.FindElement(By.Id("Filter")).Click();
 
             //-------------------------------------------------------------------
@@ -130,7 +134,7 @@ namespace SeleniumTests
             // ERROR: Caught exception [ERROR: Unsupported command [selectWindow | name=f2f8e779-4026-4f46-89b4-ca6d130079fa | ]]
             try
             {
-                Assert.AreEqual("automatic test", driver.FindElement(By.XPath(".//*[@id='main']/div[4]/div[7]/div[2]/div/p")).Text);
+                Assert.AreEqual("automatic test", driver.FindElement(By.XPath(".//*[@id='main']/div[4]/div[8]/div[2]/div/p")).Text);
             }
             catch (AssertionException e)
             {
@@ -161,11 +165,11 @@ namespace SeleniumTests
             // ERROR: Caught exception [unknown command [clickandWait]]
             driver.FindElement(By.Id("actionButton_Delete")).Click();
             Thread.Sleep(2000);
-            driver.FindElement(By.Id("actionButton_Delete")).Click();
+            driver.FindElement(By.XPath(".//*[@id='alertMessage']/div[1]")).Click();
             // ERROR: Caught exception [ERROR: Unsupported command [selectWindow | name=f2f8e779-4026-4f46-89b4-ca6d130079fa | ]]
             try
             {
-                Assert.AreEqual("     /    (Deleted) ", driver.FindElement(By.Id("breadcrumb3")).Text);
+                Assert.AreEqual(baseURL + "/PaymentList/List#forward", driver.Url);
             }
             catch (AssertionException e)
             {
