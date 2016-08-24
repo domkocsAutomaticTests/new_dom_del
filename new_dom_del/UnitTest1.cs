@@ -165,7 +165,7 @@ namespace SeleniumTests
             // ERROR: Caught exception [unknown command [clickandWait]]
             driver.FindElement(By.Id("actionButton_Delete")).Click();
             Thread.Sleep(2000);
-            driver.FindElement(By.XPath(".//*[@id='alertMessage']/div[1]")).Click();
+            driver.FindElement(By.XPath(".//*[@id='alertWrapper']/div/div/div[1]")).Click();
             // ERROR: Caught exception [ERROR: Unsupported command [selectWindow | name=f2f8e779-4026-4f46-89b4-ca6d130079fa | ]]
             try
             {
