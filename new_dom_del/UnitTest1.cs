@@ -111,6 +111,8 @@ namespace SeleniumTests
             driver.FindElement(By.Id("dk2-ToEdit")).Click();
             new SelectElement(driver.FindElement(By.Id("Filter_TransactionStatus"))).SelectByText("To edit");
             driver.FindElement(By.Id("Filter")).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(By.Id("gvPaymentList_col8")).Click();
 
             //-------------------------------------------------------------------
             do
@@ -124,7 +126,7 @@ namespace SeleniumTests
             // ERROR: Caught exception [ERROR: Unsupported command [selectWindow | name=f2f8e779-4026-4f46-89b4-ca6d130079fa | ]]
             try
             {
-                Assert.AreEqual("automatic test", driver.FindElement(By.CssSelector("#gvPaymentList_tccell0_8 > span")).Text);
+                Assert.AreEqual("automatic test", driver.FindElement(By.XPath(".//*[@id='gvPaymentList_tccell0_8']/span")).Text);
             }
             catch (AssertionException e)
             {
